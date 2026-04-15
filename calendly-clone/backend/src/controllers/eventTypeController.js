@@ -11,12 +11,12 @@ exports.getAllEventTypes = async (req, res, next) => {
 
 exports.createEventType = async (req, res, next) => {
   try {
-    const { title, slug, duration_minutes, description, color, is_active } = req.body;
+    const { title, slug, duration_minutes, description, color, is_active, buffer_before_minutes, buffer_after_minutes, custom_questions } = req.body;
     // Assuming default user_id = 1 for admin
     const { rows } = await db.query(
-      `INSERT INTO event_types (user_id, title, slug, duration_minutes, description, color, is_active)
-       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-      [1, title, slug, duration_minutes, description, color, is_active ?? true]
+      `INSERT INTO event_types (user_id, title, slug, duration_minutes, description, color, is_active, buffer_before_minutes, buffer_after_minutes, custom_questions)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+      [1, title, slug, duration_minutes, description, color, is_active ?? true, buffer_before_minutes || 0, buffer_after_minutes || 0, custom_questions || '[]']
     );
     res.status(201).json(rows[0]);
   } catch (err) {
@@ -27,12 +27,12 @@ exports.createEventType = async (req, res, next) => {
 exports.updateEventType = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { title, slug, duration_minutes, description, color, is_active } = req.body;
+    const { title, slug, duration_minutes, description, color, is_active, buffer_before_minutes, buffer_after_minutes, custom_questions } = req.body;
     const { rows } = await db.query(
       `UPDATE event_types
-       SET title = $1, slug = $2, duration_minutes = $3, description = $4, color = $5, is_active = $6
-       WHERE id = $7 RETURNING *`,
-      [title, slug, duration_minutes, description, color, is_active, id]
+       SET title = $1, slug = $2, duration_minutes = $3, description = $4, color = $5, is_active = $6, buffer_before_minutes = $7, buffer_after_minutes = $8, custom_questions = $9
+       WHERE id = $10 RETURNING *`,
+      [title, slug, duration_minutes, description, color, is_active, buffer_before_minutes || 0, buffer_after_minutes || 0, custom_questions || '[]', id]
     );
     if (rows.length === 0) return res.status(404).json({ error: 'Event type not found' });
     res.json(rows[0]);

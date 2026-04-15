@@ -9,6 +9,7 @@ const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 
 export default function AvailabilityPage() {
   const [availability, setAvailability] = useState([]);
+  const [scheduleId, setScheduleId] = useState(1);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -19,9 +20,16 @@ export default function AvailabilityPage() {
   const fetchAvailability = async () => {
     try {
       const res = await getAvailability();
+      
+      const availData = res.data.availability || [];
+      const schedData = res.data.schedules || [];
+      if (schedData.length > 0) {
+        setScheduleId(schedData[0].id);
+      }
+
       // Format data: ensure all 7 days exist
       const defaultData = DAYS.map((_, index) => {
-        const existing = res.data.find(a => a.day_of_week === index);
+        const existing = availData.find(a => a.day_of_week === index);
         return existing || { day_of_week: index, start_time: "09:00", end_time: "17:00", is_available: false };
       });
       // Sort by Mon-Sun (1-6, 0)
@@ -58,7 +66,11 @@ export default function AvailabilityPage() {
         start_time: a.start_time.length === 5 ? a.start_time + ":00" : a.start_time,
         end_time: a.end_time.length === 5 ? a.end_time + ":00" : a.end_time,
       }));
-      await updateAvailability(formatted);
+      await updateAvailability({
+        schedule_id: scheduleId,
+        availability: formatted,
+        overrides: []
+      });
       toast.success("Availability updated successfully");
     } catch (error) {
       toast.error("Failed to update availability");
