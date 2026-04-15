@@ -3,7 +3,10 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const isProduction = process.env.NODE_ENV === 'production' || process.env.DATABASE_URL?.includes('onrender');
+// Supabase and Render require SSL for remote connections.
+const isProduction = process.env.NODE_ENV === 'production' || 
+  process.env.DATABASE_URL?.includes('onrender') || 
+  process.env.DATABASE_URL?.includes('supabase');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
