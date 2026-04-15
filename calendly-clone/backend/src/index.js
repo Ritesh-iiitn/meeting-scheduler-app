@@ -11,7 +11,7 @@ const availabilityRoutes = require('./routes/availability');
 const bookingsRoutes = require('./routes/bookings');
 const errorHandler = require('./middlewares/errorHandler');
 
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3000' }));
+app.use(cors({ origin: process.env.FRONTEND_URL ? process.env.FRONTEND_URL.trim() : 'http://localhost:3000' }));
 app.use(express.json());
 
 app.use('/api/event-types', eventTypesRoutes);
