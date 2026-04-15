@@ -1,66 +1,79 @@
 "use client";
 import Link from "next/link";
-import { Link as LinkIcon, Clock, Calendar, Sparkles } from "lucide-react";
+import { Plus, Settings, Link as LinkIcon } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="max-w-6xl mx-auto opacity-0 animate-fade-in p-6">
-      {/* Hero Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 shadow-blue-500/20 shadow-xl to-purple-600 flex items-center justify-center animate-pulse">
-            <Sparkles className="text-white w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-700 tracking-tight">
-              Dashboard
-            </h1>
-            <p className="text-slate-500 font-medium mt-1">
-              Welcome back, John. Here&apos;s your overview.
-            </p>
-          </div>
+    <div className="max-w-6xl mx-auto p-8 font-sans">
+      {/* Top Section */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
+            John Doe
+          </h1>
+          <a href="#" className="text-blue-600 font-medium hover:underline mt-1 inline-block">
+            calendly.com/john-doe
+          </a>
         </div>
-
+        <div className="flex items-center gap-3">
+          <button className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-sm">
+            <Plus className="w-4 h-4" />
+            Create
+          </button>
+        </div>
       </div>
 
-      {/* Quick Actions */}
-      <h2 className="text-xl font-bold text-slate-800 mb-6">Quick Actions</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Event Types */}
-        <Link href="/event-types" className="block group">
-          <div className="glass-card p-8 rounded-2xl h-full flex flex-col relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-blue-50 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-blue-100 transition-all pointer-events-none"></div>
-            <LinkIcon className="w-10 h-10 text-blue-500 mb-6 group-hover:scale-110 group-hover:-rotate-12 transition-transform origin-left" />
-            <h2 className="text-2xl font-bold mb-3 text-slate-800">Event Types</h2>
-            <p className="text-slate-500 font-medium leading-relaxed">
-              Create and manage your event types, duration, and rich details.
-            </p>
-          </div>
-        </Link>
+      {/* Tabs */}
+      <div className="border-b border-slate-300 mb-6">
+        <nav className="flex space-x-8">
+          <a href="#" className="border-b-[3px] border-blue-600 py-4 px-1 text-[15px] font-bold text-slate-900">
+            Event types
+          </a>
+          <a href="/meetings" className="border-b-[3px] border-transparent py-4 px-1 text-[15px] font-semibold text-slate-500 hover:text-slate-800 hover:border-slate-300">
+            Scheduled events
+          </a>
+        </nav>
+      </div>
 
-        {/* Availability */}
-        <Link href="/availability" className="block group">
-          <div className="glass-card p-8 rounded-2xl h-full flex flex-col relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-purple-50 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-purple-100 transition-colors pointer-events-none"></div>
-            <Clock className="w-10 h-10 text-purple-500 mb-6 group-hover:scale-110 group-hover:rotate-12 transition-transform origin-left" />
-            <h2 className="text-2xl font-bold mb-3 text-slate-800">Availability</h2>
-            <p className="text-slate-500 font-medium leading-relaxed">
-              Configure your absolute master weekly availability hours.
-            </p>
-          </div>
-        </Link>
+      {/* Content box */}
+      <div className="bg-white rounded-[4px] border border-slate-200 shadow-sm overflow-hidden">
+        
+        {/* Links to specific pages from quick actions, restyled */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 bg-slate-50">
+           
+           <div className="bg-white border-r border-b border-slate-200 p-6 flex flex-col h-56 hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer relative group">
+              <div className="absolute top-0 left-0 w-full h-1 bg-slate-200 group-hover:bg-blue-600 transition-colors"></div>
+              <div className="flex justify-between mb-4">
+                <div className="w-8 h-8 rounded-full bg-blue-50 flex flex-col justify-center items-center">
+                   <div className="w-3 h-3 rounded-full bg-blue-600"></div>
+                </div>
+                <Settings className="w-5 h-5 text-slate-400 group-hover:text-slate-700 transition-colors" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-1">Event Types</h3>
+              <p className="text-slate-600 font-medium text-sm mb-auto">Manage your distinct meeting parameters.</p>
+              
+              <Link href="/event-types" className="text-blue-600 font-bold hover:underline mt-4 text-sm inline-flex items-center gap-1 border-t border-slate-100 pt-4">
+                 <LinkIcon className="w-4 h-4" /> Go to Event Types
+              </Link>
+           </div>
 
-        {/* Meetings */}
-        <Link href="/meetings" className="block group">
-          <div className="glass-card p-8 rounded-2xl h-full flex flex-col relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-pink-50 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-pink-100 transition-colors pointer-events-none"></div>
-            <Calendar className="w-10 h-10 text-pink-500 mb-6 group-hover:scale-110 group-hover:-translate-y-2 transition-transform origin-left" />
-            <h2 className="text-2xl font-bold mb-3 text-slate-800">Meetings</h2>
-            <p className="text-slate-500 font-medium leading-relaxed">
-              View and cancel your upcoming scheduled meetings dynamically.
-            </p>
-          </div>
-        </Link>
+           <div className="bg-white border-r border-b border-slate-200 p-6 flex flex-col h-56 hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer relative group">
+              <div className="absolute top-0 left-0 w-full h-1 bg-slate-200 group-hover:bg-purple-600 transition-colors"></div>
+              <div className="flex justify-between mb-4">
+                <div className="w-8 h-8 rounded-full bg-purple-50 flex flex-col justify-center items-center">
+                   <div className="w-3 h-3 rounded-full bg-purple-600"></div>
+                </div>
+                <Settings className="w-5 h-5 text-slate-400 group-hover:text-slate-700 transition-colors" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-1">Availability</h3>
+              <p className="text-slate-600 font-medium text-sm mb-auto">Set your global master schedule limits.</p>
+              
+              <Link href="/availability" className="text-blue-600 font-bold hover:underline mt-4 text-sm inline-flex items-center gap-1 border-t border-slate-100 pt-4">
+                 <LinkIcon className="w-4 h-4" /> Go to Availability
+              </Link>
+           </div>
+           
+        </div>
       </div>
     </div>
   );
