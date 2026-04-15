@@ -21,14 +21,6 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex gap-3">
-          <button className="glass px-6 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
-            Share Link
-          </button>
-          <button className="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold shadow-sm hover:shadow-md hover:bg-blue-700 transition-all">
-            + Quick Add
-          </button>
-        </div>
       </div>
 
       {/* Quick Actions */}
